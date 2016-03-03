@@ -10,7 +10,6 @@ function isNumber(num) {
 }
 
 function getRandomInt(min, max) {
-
   var n = Math.floor(Math.random() * (max - min)) + min;
   console.log("random n = " + n);
   return n;
@@ -18,10 +17,12 @@ function getRandomInt(min, max) {
 
 function getGuess() {
   // var n = parseInt(prompt("Guess number: "));
-  var n = parseInt(document.getElementById("userGuess").value);
+  var n = parseInt(document.forms["gameForm"]["userGuess"].value);
   console.log("Guess: " + n);
   return n;
 }
+
+
 
 function testGuess(guess, answer) {
   if (guess < answer) {
@@ -30,14 +31,15 @@ function testGuess(guess, answer) {
     } else if (guess > answer) {
       // console.log(guess + " is greater than the answer.");
       document.getElementById("info").innerHTML = guess + " is greater than the answer.";
+    } else {
+      endGame();
     }
 }
 
 function startGame() {
   document.getElementById("playButton").style.visibility = "hidden";
-  // document.getElementById("guessForm").style.visibility = "visible";
+  document.getElementById("gameForm").style.visibility = "visible";
   // document.getElementById("directions").innerHTML = "Guess a number 1 - 10.";
-  var guess;
   answer = getRandomInt(0, 10);
   
   // while (guess !== answer) {
@@ -53,4 +55,11 @@ function startGame() {
   // // document.getElementById("directions").innerHTML = "";
   // document.getElementById("guessForm").style.visibility = "hidden";
 }
+
+$("#gameForm").submit(function(e) {
+  e.preventDefault();
+  var n = parseInt(document.forms["gameForm"]["userGuess"].value);
+  console.log("Guess: " + n);
+  testGuess(n, answer);
+})
 
