@@ -1,3 +1,10 @@
+
+
 #gameForm {
   visibility: hidden;
+}
+
+#winMsg {
+  font-size: 24pt;
+  font-weight: bolder;
 }

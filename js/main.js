@@ -1,3 +1,6 @@
+var minN = 1;
+var maxN = 20;
+
 var answer;
 
 function isNumber(num) {
@@ -15,14 +18,19 @@ function getRandomInt(min, max) {
   return n;
 }
 
+function endGame() {
+  document.getElementById('info').innerHTML = answer + " is correct!";
+  document.getElementById('winMsg').innerHTML = "You win!";
+  document.getElementById("playButton").style.visibility = "visible";
+  document.getElementById("gameForm").style.visibility = "hidden";
+}
+
 function getGuess() {
   // var n = parseInt(prompt("Guess number: "));
   var n = parseInt(document.forms["gameForm"]["userGuess"].value);
   console.log("Guess: " + n);
   return n;
 }
-
-
 
 function testGuess(guess, answer) {
   if (guess < answer) {
@@ -37,29 +45,24 @@ function testGuess(guess, answer) {
 }
 
 function startGame() {
+    document.getElementById('info').innerHTML = "";
+  document.getElementById('winMsg').innerHTML = "";
   document.getElementById("playButton").style.visibility = "hidden";
   document.getElementById("gameForm").style.visibility = "visible";
-  // document.getElementById("directions").innerHTML = "Guess a number 1 - 10.";
-  answer = getRandomInt(0, 10);
+  answer = getRandomInt(minN, maxN);
   
-  // while (guess !== answer) {
-
-  //   guess = getGuess();
-  //   testGuess(guess,answer);
-    
-    
-  // } 
-  // console.log(guess + " is right!");
-  // document.getElementById("playButton").style.visibility = "visible";
-  // document.getElementById("info").innerHTML = "";
-  // // document.getElementById("directions").innerHTML = "";
-  // document.getElementById("guessForm").style.visibility = "hidden";
+  
 }
 
 $("#gameForm").submit(function(e) {
   e.preventDefault();
   var n = parseInt(document.forms["gameForm"]["userGuess"].value);
   console.log("Guess: " + n);
-  testGuess(n, answer);
+  if (!isNumber(n)) {
+    document.getElementById('info').innerHTML = "That is not a number.";
+  } else {
+    testGuess(n, answer);
+  }
+  
 })
 
